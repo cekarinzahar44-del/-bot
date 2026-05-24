@@ -5,6 +5,7 @@ from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 
 from config import BOT_TOKEN
+from database import init_db
 from handlers import catalog, cart, orders, admin, start
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -12,6 +13,8 @@ logger = logging.getLogger(__name__)
 
 
 async def main():
+    await init_db()   # ← создаёт таблицы БД при первом запуске
+
     bot = Bot(
         token=BOT_TOKEN,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML)
